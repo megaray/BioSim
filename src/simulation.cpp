@@ -335,7 +335,7 @@ void Simulation::evolve() {
                                                     newGen[i]->pos.y + randFloat(-20, 20));
                 child->brain = newGen[i]->brain->clone();
                 child->brain->mutate(gui.mutationRate);
-                child->generation = ++predGeneration;
+                child->generation = ++preyGeneration;
                 newGen.emplace_back(std::move(child));
             }
         }

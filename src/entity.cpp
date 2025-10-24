@@ -158,13 +158,16 @@ void Prey::think(const std::vector<std::unique_ptr<Predator>>& predators,
     const auto outputs = brain->forward(inputs);
 
     const float angle = (outputs[0] - 0.5f) * 2.0f * 3.14159f;
-    float speed(0.0f);
-    speed = (outputs[1] * 100.0f);
+    float speed = outputs[1] * 100.0f;
+
+    if (speed < 0.5f) {
+        speed = 0.0f;
+    }
 
     vel.x = std::cos(angle) * speed;
     vel.y = std::sin(angle) * speed;
 
-    float currentSpeed = sqrt((vel.x * vel.x) + (vel.y * vel.y));
+    float currentSpeed = std::sqrt(vel.x * vel.x + vel.y * vel.y);
 
     if (currentSpeed < 10){
         fitness -= 0.1f;
@@ -231,16 +234,16 @@ void Predator::think(const std::vector<std::unique_ptr<Prey>>& preys) {
     const float angle = (outputs[0] - 0.5f) * 2.0f * 3.14159f;
     float speed = outputs[1] * 150.0f;
 
-
+    if (speed < 0.5f) {
+        speed = 0.0f;
+    }
 
     vel.x = std::cos(angle) * speed;
     vel.y = std::sin(angle) * speed;
 
-
     float currentSpeed = std::sqrt(vel.x * vel.x + vel.y * vel.y);
 
-
-    if (currentSpeed < 10 ){
-        fitness -= 0.1;
+    if (currentSpeed < 10){
+        fitness -= 0.1f;
     }
 }
