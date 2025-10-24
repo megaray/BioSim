@@ -34,6 +34,14 @@ public:
         float generationTime;
         float fastForwardRate;
 
+        GUIControls()
+            : showDetectionRadius(true),
+              showAverageSpeed(true),
+              showDirectionLines(true),
+              mutationRate(0.15f),
+              generationTime(30.0f),
+              fastForwardRate(1.0f) {}
+
         void draw(sf::RenderWindow& window, const sf::Font& font);
 
         void handleInput(sf::Keyboard::Key key);

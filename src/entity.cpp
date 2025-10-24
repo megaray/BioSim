@@ -237,8 +237,7 @@ void Predator::think(const std::vector<std::unique_ptr<Prey>>& preys) {
     vel.y = std::sin(angle) * speed;
 
 
-    //calcul de la vitesse moyenne entité (predateur)
-    float currentSpeed = 0.0f;//sqrt(pow(vel.x,2)*pow(vel.y,2));
+    float currentSpeed = std::sqrt(vel.x * vel.x + vel.y * vel.y);
 
 
     if (currentSpeed < 10 ){
