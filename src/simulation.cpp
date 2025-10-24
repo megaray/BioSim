@@ -218,7 +218,7 @@ Simulation::Simulation() : generation(1), timer(0), preyGeneration(1), predGener
 }
 
 void Simulation::update(float dt) {
-    dt *= gui.fastForwardRate;
+    //std::cout<<dt<<std::endl;
     timer += dt;
     graphUpdateTimer += dt;
     foodSpawnTimer += dt;
@@ -335,7 +335,7 @@ void Simulation::evolve() {
                                                     newGen[i]->pos.y + randFloat(-20, 20));
                 child->brain = newGen[i]->brain->clone();
                 child->brain->mutate(gui.mutationRate);
-                child->generation = ++predGeneration;
+                child->generation = ++preyGeneration;
                 newGen.emplace_back(std::move(child));
             }
         }
