@@ -14,8 +14,9 @@ class Predator;
 //===========ENTITE DE BASE==========
 class Entity {
 public:
-    sf::Vector2f pos, vel;
+    sf::Vector2f pos, vel, acc;  // Added acceleration
     float radius;
+    float maxSpeed;  // Max speed constraint
     sf::Color color;
     std::unique_ptr<NeuralNetwork> brain;
     float energy;

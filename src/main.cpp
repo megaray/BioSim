@@ -8,6 +8,7 @@
 
 // ============ MAIN ============
 int main() {
+    GUI::GUIControls gui;
     sf::RenderWindow window(sf::VideoMode({GUI::res_width, GUI::res_height}), "Simulation IA Ecosystem - Proies vs Predateurs");
     window.setFramerateLimit(60);
 
@@ -30,6 +31,8 @@ int main() {
         }
 
         float dt = clock.restart().asSeconds();
+        gui.fastForwardRate = 1.0f,
+        //dt *= gui.fastForwardRate;
         sim.update(dt);
 
         window.clear(sf::Color(20, 20, 30));

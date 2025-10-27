@@ -218,7 +218,7 @@ Simulation::Simulation() : generation(1), timer(0), preyGeneration(1), predGener
 }
 
 void Simulation::update(float dt) {
-    dt *= gui.fastForwardRate;
+    //std::cout<<dt<<std::endl;
     timer += dt;
     graphUpdateTimer += dt;
     foodSpawnTimer += dt;

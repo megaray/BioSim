@@ -23,6 +23,15 @@ BioSim est un projet C++ innovant qui simule l’interaction entre **prédateurs
 
 ---
 
+## Developpement 
+
+*Programme en cours de développement* 
+- Toutes les fonctionnalité du programme ne sont pas finalisée.
+- Problème d'alignement important concernant l'IA
+- Probable disfonction de la normalisation des probabilitées de sorties
+- ...
+
+
 ## Installation
 
 1. Clone le dépôt :

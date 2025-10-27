@@ -4,24 +4,38 @@
 #include <iostream>
 
 Entity::Entity(float x, float y, float r, sf::Color c, int in, int hid, int out)
-    : pos(x, y), vel(0, 0), radius(r), color(c),
+    : pos(x, y), vel(0, 0), acc(0, 0), radius(r), color(c),
     brain(std::make_unique<NeuralNetwork>(in, hid, out)),
-    energy(100), fitness(0), generation(1), age(0), timeSinceLastMeal(1) {}
+    energy(100), fitness(0), generation(1), age(0), timeSinceLastMeal(1), maxSpeed(200.0f) {}
 
 void Entity::update(float dt, float width, float height, const std::vector<TerrainTile>& terrain) {
     // Vieillissement
     age++;
     timeSinceLastMeal += dt;
-    vel *= 0.95f;  // Réduit de 5% par frame
 
-    // Si trop lent, arrêt complet
+    // PHYSICS-BASED MOVEMENT:
+    // 1. Apply acceleration to velocity
+    vel += acc * dt;
+
+    // 2. Apply friction (realistic drag)
+    vel *= 0.98f;  // Slight friction every frame
+
+    // 3. Clamp to max speed
     float currentSpeed = std::sqrt(vel.x * vel.x + vel.y * vel.y);
+    if (currentSpeed > maxSpeed) {
+        vel *= (maxSpeed / currentSpeed);
+    }
+
+    // 4. Stop if too slow (prevent drift)
     if (currentSpeed < 0.5f) {
         vel.x = 0;
         vel.y = 0;
     }
 
-    // Application du mouvement
+    // 5. Reset acceleration for next frame
+    acc = sf::Vector2f(0, 0);
+
+    // 6. Apply velocity to position
     sf::Vector2f oldPos = pos;
     pos += vel * dt;
 
@@ -42,7 +56,7 @@ void Entity::update(float dt, float width, float height, const std::vector<Terra
     for (const auto& tile : terrain) {
         if (tile.collidesWith(pos, radius)) {
             pos = oldPos;
-            vel *= -0.5f;
+            vel *= -0.3f;  // Bounce back (energy loss)
             break;
         }
     }
@@ -158,6 +172,7 @@ void Prey::think(const std::vector<std::unique_ptr<Predator>>& predators,
     const auto outputs = brain->forward(inputs);
 
     const float angle = (outputs[0] - 0.5f) * 2.0f * 3.14159f;
+<<<<<<< HEAD
 
     float speedOutput = outputs[1];
     if (speedOutput < 0.3f) {
@@ -166,10 +181,24 @@ void Prey::think(const std::vector<std::unique_ptr<Predator>>& predators,
         speedOutput = (speedOutput - 0.3f) / 0.7f;
     }
     float speed = speedOutput * 100.0f;
+=======
+>>>>>>> 05cc87d (modif complet)
 
-    vel.x = std::cos(angle) * speed;
-    vel.y = std::sin(angle) * speed;
+    float speedOutput = outputs[1];
+    if (speedOutput < 0.3f) {
+        speedOutput = 0.0f;
+    } else {
+        speedOutput = (speedOutput - 0.3f) / 0.7f;
+    }
 
+<<<<<<< HEAD
+=======
+    // ACCELERATION-BASED: Apply force instead of setting velocity directly
+    float forceStrength = speedOutput * 300.0f;  // Acceleration force
+    acc.x = std::cos(angle) * forceStrength;
+    acc.y = std::sin(angle) * forceStrength;
+
+>>>>>>> 05cc87d (modif complet)
     float currentSpeed = std::sqrt(vel.x * vel.x + vel.y * vel.y);
 
     if (currentSpeed < 10){
@@ -177,7 +206,9 @@ void Prey::think(const std::vector<std::unique_ptr<Predator>>& predators,
     }
 }
 //==========PREDATEUR===========
-Predator::Predator(float x, float y) : Entity(x, y, 8, sf::Color::Red, 8, 20, 2), kills(0) {}
+Predator::Predator(float x, float y) : Entity(x, y, 8, sf::Color::Red, 8, 20, 2), kills(0) {
+    maxSpeed = 250.0f;  // Predators are faster
+}
 
 bool Predator::isStarving() const {             // check si il est sur le point de mourir de faim
     return timeSinceLastMeal > STARVATION_TIME;
@@ -205,13 +236,15 @@ void Predator::think(const std::vector<std::unique_ptr<Prey>>& preys) {
         fitness -= 1.0f;
     }
 
-    // reaction basé sur la proximité/faim
-    if (closestDist < HUNGER_RADIUS and isHungry()){
-        //chasse direct
+    // ACCELERATION-BASED: Apply strong chase force when hungry and close
+    if (closestDist < HUNGER_RADIUS && isHungry()) {
         sf::Vector2f chaseDir = closestPrey - pos;
         float magnitude = std::sqrt(chaseDir.x * chaseDir.x + chaseDir.y * chaseDir.y);
-        chaseDir /= magnitude;
-        vel = chaseDir * 180.0f; // Poursuite rapide
+        if (magnitude > 0) {
+            chaseDir /= magnitude;  // Normalize
+            // Apply strong acceleration towards prey
+            acc += chaseDir * 500.0f;  // Strong chase force
+        }
     }
 
     if (isStarving()) {
@@ -235,6 +268,7 @@ void Predator::think(const std::vector<std::unique_ptr<Prey>>& preys) {
     const auto outputs = brain->forward(inputs);
 
     const float angle = (outputs[0] - 0.5f) * 2.0f * 3.14159f;
+<<<<<<< HEAD
 
     float speedOutput = outputs[1];
     if (speedOutput < 0.3f) {
@@ -243,12 +277,28 @@ void Predator::think(const std::vector<std::unique_ptr<Prey>>& preys) {
         speedOutput = (speedOutput - 0.3f) / 0.7f;
     }
     float speed = speedOutput * 150.0f;
+=======
 
-    vel.x = std::cos(angle) * speed;
-    vel.y = std::sin(angle) * speed;
+    float speedOutput = outputs[1];
+    if (speedOutput < 0.3f) {
+        speedOutput = 0.0f;
+    } else {
+        speedOutput = (speedOutput - 0.3f) / 0.7f;
+    }
+
+    // ACCELERATION-BASED: Neural network adds to acceleration
+    float forceStrength = speedOutput * 400.0f;  // Predators have stronger acceleration
+    acc.x += std::cos(angle) * forceStrength;
+    acc.y += std::sin(angle) * forceStrength;
+>>>>>>> 05cc87d (modif complet)
 
     float currentSpeed = std::sqrt(vel.x * vel.x + vel.y * vel.y);
 
+<<<<<<< HEAD
+    float currentSpeed = std::sqrt(vel.x * vel.x + vel.y * vel.y);
+
+=======
+>>>>>>> 05cc87d (modif complet)
     if (currentSpeed < 10){
         fitness -= 0.1f;
     }

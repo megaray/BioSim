@@ -9,6 +9,9 @@
 #include <iostream>
 #include <deque>
 
+
+
+
 // ============ GRAPHIQUE DE FITNESS ============
 void GUI::FitnessGraph::addData(float preyAvg, float predAvg) {
     preyFitness.push_back(preyAvg);
@@ -68,10 +71,19 @@ void GUI::FitnessGraph::draw(sf::RenderWindow& window, const sf::Font& font) con
     drawCurve(predatorFitness, sf::Color::Red);
 }
 
+<<<<<<< HEAD
 
 // ============ GUI CONTROLS ============
 
+=======
+>>>>>>> 05cc87d (modif complet)
 void GUI::GUIControls::draw(sf::RenderWindow& window, const sf::Font& font) {
+    showDetectionRadius = true;
+    showAverageSpeed = true;
+    showDirectionLines=true;
+    mutationRate=0.15f;
+    generationTime=30.0f;
+    fastForwardRate=1.0f;
     const float guiX = res_width - 220;
     const float guiY = 10;
 
