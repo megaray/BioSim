@@ -1,7 +1,98 @@
-build
-out
-.cache
-.idea
-.vs
-.vscode
-.env
+# ================================
+# Fichiers de configuration système / éditeur de code
+# ================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Fichiers de swap / temporaires
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# ================================
+# Build / CMake / Ninja / générés
+# ================================
+# Dossier de build
+/build-*/             # ex: build-Debug, build-Release
+bin/Debug/
+bin/Release/
+
+# Fichiers CMake générés
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.ninja
+*.ninja_deps
+*.ninja_log
+
+# Autres fichiers de build
+*.obj
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.pdb
+*.lib
+
+# Qt / Qt Creator
+*.pro.user
+*.qmake.stash
+*.qrc.dep
+*.qtc_clangd/
+qtcsettings.cmake
+
+# ================================
+# Dépendances externes / sous-modules (internal / vendored)
+# ================================
+_deps/
+.external/         # si tu as un dossier externe
+third_party/       # selon ta structure
+
+# ================================
+# Fichiers de log, de trace, temporaires
+# ================================
+*.log
+*.trace
+*.dump
+*.out
+*.err
+
+# ================================
+# Fichiers d’IDE / éditeur spécifiques
+# ================================
+# VS Code
+.vscode/
+
+# CLion / JetBrains
+.idea/
+*.iml
+
+# Visual Studio
+*.vcxproj*
+*.user
+*.vsp
+*.suo
+*.sdf
+
+# ================================
+# Autres (cache, fichiers de test temporaires)
+# ================================
+Testing/Temporary/     # selon ce que tu y mets réellement
+
+# ================================
+# Fichiers que tu **ne veux pas ignorer**
+# ================================
+!CMakeLists.txt        # tu veux que le CMakeLists soit versionné
+!README.md
+!LICENSE*.md
