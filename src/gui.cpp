@@ -72,11 +72,14 @@ void GUI::FitnessGraph::draw(sf::RenderWindow& window, const sf::Font& font) con
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 // ============ GUI CONTROLS ============
 
 =======
 >>>>>>> 05cc87d (modif complet)
+=======
+>>>>>>> 05cc87d1fd4700869daa89c09585c77987b9b8aa
 void GUI::GUIControls::draw(sf::RenderWindow& window, const sf::Font& font) {
     showDetectionRadius = true;
     showAverageSpeed = true;

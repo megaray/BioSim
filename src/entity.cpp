@@ -173,6 +173,9 @@ void Prey::think(const std::vector<std::unique_ptr<Predator>>& predators,
 
     const float angle = (outputs[0] - 0.5f) * 2.0f * 3.14159f;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 05cc87d1fd4700869daa89c09585c77987b9b8aa
 
     float speedOutput = outputs[1];
     if (speedOutput < 0.3f) {
@@ -180,6 +183,7 @@ void Prey::think(const std::vector<std::unique_ptr<Predator>>& predators,
     } else {
         speedOutput = (speedOutput - 0.3f) / 0.7f;
     }
+<<<<<<< HEAD
     float speed = speedOutput * 100.0f;
 =======
 >>>>>>> 05cc87d (modif complet)
@@ -193,12 +197,18 @@ void Prey::think(const std::vector<std::unique_ptr<Predator>>& predators,
 
 <<<<<<< HEAD
 =======
+=======
+
+>>>>>>> 05cc87d1fd4700869daa89c09585c77987b9b8aa
     // ACCELERATION-BASED: Apply force instead of setting velocity directly
     float forceStrength = speedOutput * 300.0f;  // Acceleration force
     acc.x = std::cos(angle) * forceStrength;
     acc.y = std::sin(angle) * forceStrength;
 
+<<<<<<< HEAD
 >>>>>>> 05cc87d (modif complet)
+=======
+>>>>>>> 05cc87d1fd4700869daa89c09585c77987b9b8aa
     float currentSpeed = std::sqrt(vel.x * vel.x + vel.y * vel.y);
 
     if (currentSpeed < 10){
@@ -269,6 +279,9 @@ void Predator::think(const std::vector<std::unique_ptr<Prey>>& preys) {
 
     const float angle = (outputs[0] - 0.5f) * 2.0f * 3.14159f;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 05cc87d1fd4700869daa89c09585c77987b9b8aa
 
     float speedOutput = outputs[1];
     if (speedOutput < 0.3f) {
@@ -276,6 +289,7 @@ void Predator::think(const std::vector<std::unique_ptr<Prey>>& preys) {
     } else {
         speedOutput = (speedOutput - 0.3f) / 0.7f;
     }
+<<<<<<< HEAD
     float speed = speedOutput * 150.0f;
 =======
 
@@ -299,6 +313,16 @@ void Predator::think(const std::vector<std::unique_ptr<Prey>>& preys) {
 
 =======
 >>>>>>> 05cc87d (modif complet)
+=======
+
+    // ACCELERATION-BASED: Neural network adds to acceleration
+    float forceStrength = speedOutput * 400.0f;  // Predators have stronger acceleration
+    acc.x += std::cos(angle) * forceStrength;
+    acc.y += std::sin(angle) * forceStrength;
+
+    float currentSpeed = std::sqrt(vel.x * vel.x + vel.y * vel.y);
+
+>>>>>>> 05cc87d1fd4700869daa89c09585c77987b9b8aa
     if (currentSpeed < 10){
         fitness -= 0.1f;
     }
