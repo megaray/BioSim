@@ -66,6 +66,10 @@ std::array<float, 2> NeuralNetwork::forward(const std::array<float, 8>& input) {
     return output;
 }
 
+// Backward propagation
+
+
+
 void NeuralNetwork::mutate(float rate) {
     static std::uniform_real_distribution<float> prob(0.0f, 1.0f);
     auto& rng = getRNG();
