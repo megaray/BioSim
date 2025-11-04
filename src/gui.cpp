@@ -27,7 +27,18 @@ void GUI::FitnessGraph::draw(sf::RenderWindow& window, const sf::Font& font) con
     const float graphX = 10.0f;
     const float graphY = 420.0f;
     const float graphWidth = 250.0f;
-    const float graphHeight = 120.0f;
+    const float maxGraphHeight = 120.0f;
+
+    // Calculer la hauteur disponible jusqu'au bord de la fenêtre
+    const float windowHeight = static_cast<float>(window.getSize().y);
+    const float margin = 10.0f; // Marge de sécurité en bas
+    const float availableHeight = windowHeight - graphY - margin;
+
+    // Ajuster la hauteur pour ne pas dépasser
+    const float graphHeight = std::min(maxGraphHeight, availableHeight);
+
+    // Si la hauteur est trop petite, ne pas afficher
+    if (graphHeight < 40.0f) return;
 
     sf::RectangleShape background({graphWidth, graphHeight});
     background.setPosition({graphX, graphY});
@@ -54,6 +65,9 @@ void GUI::FitnessGraph::draw(sf::RenderWindow& window, const sf::Font& font) con
     const float plotY = graphY + 25.0f;
     const float plotHeight = graphHeight - 30.0f;
 
+    // S'assurer que le plotHeight reste positif
+    if (plotHeight <= 0.0f) return;
+
     auto drawCurve = [&](const std::deque<float>& data, sf::Color color) {
         if (data.size() < 2) return;
 
@@ -61,6 +75,8 @@ void GUI::FitnessGraph::draw(sf::RenderWindow& window, const sf::Font& font) con
         for (size_t i = 0; i < data.size(); ++i) {
             float x = graphX + (i * graphWidth / MAX_POINTS);
             float normalizedFitness = data[i] / maxFitness;
+            // Clamper la valeur normalisée entre 0 et 1 pour éviter tout dépassement
+            normalizedFitness = std::max(0.0f, std::min(1.0f, normalizedFitness));
             float y = plotY + plotHeight - (normalizedFitness * plotHeight);
             vertices.push_back(sf::Vertex{{x, y}, color});
         }
@@ -78,7 +94,18 @@ void GUI::DebugMonitor::draw(sf::RenderWindow& window, const sf::Font& font) con
     const float debugX = 10.0f;
     const float debugY = 550.0f;
     const float debugWidth = 300.0f;
-    const float debugHeight = 240.0f;
+    const float maxDebugHeight = 240.0f;
+
+    // Calculer la hauteur disponible jusqu'au bord de la fenêtre
+    const float windowHeight = static_cast<float>(window.getSize().y);
+    const float margin = 10.0f; // Marge de sécurité en bas
+    const float availableHeight = windowHeight - debugY - margin;
+
+    // Ajuster la hauteur pour ne pas dépasser
+    const float debugHeight = std::min(maxDebugHeight, availableHeight);
+
+    // Si la hauteur est trop petite, ne pas afficher
+    if (debugHeight < 50.0f) return;
 
     sf::RectangleShape bg({debugWidth, debugHeight});
     bg.setPosition({debugX, debugY});
