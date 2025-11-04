@@ -22,7 +22,9 @@ Desktop.ini
 # Build / CMake / Ninja / générés
 # ================================
 # Dossier de build
+/build/
 /build-*/             # ex: build-Debug, build-Release
+bin/
 bin/Debug/
 bin/Release/
 
@@ -34,6 +36,14 @@ Makefile
 *.ninja
 *.ninja_deps
 *.ninja_log
+.ninja_deps
+.ninja_log
+
+# Fichiers ninja à la racine (générés par CMake)
+/build.ninja
+/build-Debug.ninja
+/build-Release.ninja
+/build-RelWithDebInfo.ninja
 
 # Autres fichiers de build
 *.obj
@@ -47,10 +57,15 @@ Makefile
 
 # Qt / Qt Creator
 *.pro.user
+*.pro.user.*
 *.qmake.stash
 *.qrc.dep
-*.qtc_clangd/
+.qtc/
+.qtc_clangd/
 qtcsettings.cmake
+*.user
+CMakeLists.txt.user
+CMakeLists.txt.user.*
 
 # ================================
 # Dépendances externes / sous-modules (internal / vendored)
@@ -58,6 +73,12 @@ qtcsettings.cmake
 _deps/
 .external/         # si tu as un dossier externe
 third_party/       # selon ta structure
+
+# ================================
+# CMake / Tests
+# ================================
+Testing/
+.cmake/
 
 # ================================
 # Fichiers de log, de trace, temporaires
