@@ -200,9 +200,17 @@ void Simulation::spawnFood() {
     }
 }
 
-//PUBLIC DEF
-Simulation::Simulation() : generation(1), timer(0), preyGeneration(1), predGeneration(1),
-    graphUpdateTimer(0), foodSpawnTimer(0) {
+// ============================================================================
+// CONSTRUCTEUR - INITIALISATION DE LA SIMULATION
+// ============================================================================
+// IMPORTANT: Le constructeur reçoit maintenant une référence à l'instance
+// GUI unique. Cette référence est stockée dans la liste d'initialisation
+// des membres (gui(guiControls)).
+// ============================================================================
+Simulation::Simulation(GUI::GUIControls& guiControls)
+    : generation(1), timer(0), preyGeneration(1), predGeneration(1),
+      graphUpdateTimer(0), foodSpawnTimer(0), gui(guiControls) {
+    // Générer le terrain aléatoire
     generateTerrain();
 
     preys.reserve(25);
