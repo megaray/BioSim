@@ -71,22 +71,10 @@ void GUI::FitnessGraph::draw(sf::RenderWindow& window, const sf::Font& font) con
     drawCurve(predatorFitness, sf::Color::Red);
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
 // ============ GUI CONTROLS ============
-
-=======
->>>>>>> 05cc87d (modif complet)
-=======
->>>>>>> 05cc87d1fd4700869daa89c09585c77987b9b8aa
 void GUI::GUIControls::draw(sf::RenderWindow& window, const sf::Font& font) {
-    showDetectionRadius = true;
-    showAverageSpeed = true;
-    showDirectionLines=true;
-    mutationRate=0.15f;
-    generationTime=30.0f;
-    fastForwardRate=1.0f;
+    // Les valeurs sont initialisées dans le constructeur et modifiées par handleInput()
+    // Ne PAS réinitialiser ici pour permettre la persistance des changements utilisateur
     const float guiX = res_width - 220;
     const float guiY = 10;
 
