@@ -1,4 +1,4 @@
-prefix=/usr/local
+prefix=/tmp
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
@@ -10,5 +10,5 @@ Version: 3.0.2
 Requires: sfml-system
 Libs: -L${libdir} -lsfml-window
 # gl may not be in pkg-config
-Libs.private:  
+Libs.private: /usr/lib/x86_64-linux-gnu/libGL.so /usr/lib/x86_64-linux-gnu/libGLU.so
 Cflags: -I${includedir}

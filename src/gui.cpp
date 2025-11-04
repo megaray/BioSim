@@ -161,9 +161,7 @@ void GUI::GUIControls::draw(sf::RenderWindow& window, const sf::Font& font) {
        << "\n[UP/DOWN] Gen Time: " << (int)generationTime << "s"
        << "\n[Q/W] Fast Forward: " << std::fixed << std::setprecision(1) << fastForwardRate << "x"
        << "\n\n[F1] Debug Monitor: " << (debugMonitor.isEnabled() ? "ON" : "OFF")
-       << "\n\n--- Terrain (DISABLED) ---"
-       << "\n(Terrain commented out)"
-       << "\nfor debugging clarity";
+       ;
 
     sf::Text controls(font);
     controls.setString(ss.str());
@@ -189,7 +187,7 @@ void GUI::GUIControls::handleInput(sf::Keyboard::Key key) {
     else if (key == sf::Keyboard::Key::V) {
         showAverageSpeed = !showAverageSpeed;
     }
-    else if (key == sf::Keyboard::Key::F1) {
+    else if (key == sf::Keyboard::Key::E) {
         debugMonitor.toggle();
     }
     // MUTATION RATE: Touches LEFT/RIGHT seulement
