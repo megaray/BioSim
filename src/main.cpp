@@ -60,6 +60,10 @@ int main() {
         // Temps écoulé depuis la dernière frame
         float dt = clock.restart().asSeconds();
 
+        // ========== MISE À JOUR DU GUI ==========
+        // Mettre à jour le GUI pour détecter les changements et le cycling
+        gui.update();
+
         // ========== APPLICATION DU FAST-FORWARD ==========
         // IMPORTANT: On utilise l'instance UNIQUE de GUI
         // Le multiplicateur fastForwardRate est modifié par l'utilisateur

@@ -86,7 +86,12 @@ void Entity::update(float dt, float width, float height, const std::vector<Terra
         pos.y = 4.0f;
     }
 
-    // ========== COLLISION AVEC LES OBSTACLES ==========
+    // ========== TERRAIN DISABLED - COLLISIONS ET EFFETS COMMENTÉS ==========
+    // Les collisions avec le terrain et les effets du terrain sont désactivés
+    // pour simplifier le debugging et se concentrer sur les problèmes de vitesse
+    // et de cycling.
+
+    /* COLLISION AVEC LES OBSTACLES - DISABLED
     // Vérifier si l'entité entre en collision avec le terrain
     for (const auto& tile : terrain) {
         if (tile.collidesWith(pos, radius)) {
@@ -98,8 +103,9 @@ void Entity::update(float dt, float width, float height, const std::vector<Terra
             break;
         }
     }
+    */
 
-    // ========== EFFETS DU TERRAIN SUR LE MOUVEMENT ==========
+    /* EFFETS DU TERRAIN - DISABLED
     // Différents types de terrain affectent le mouvement et l'énergie
     for (const auto& tile : terrain) {
         sf::FloatRect tileBounds = tile.shape.getGlobalBounds();
@@ -121,6 +127,7 @@ void Entity::update(float dt, float width, float height, const std::vector<Terra
             break;
         }
     }
+    */
 
     // Coût énergétique de base (métabolisme)
     energy -= 0.01f * dt;

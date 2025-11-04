@@ -31,9 +31,20 @@ int Simulation::randInt(int min, int max) {
     return dist(getRNG());
 }
 
+// ============================================================================
+// TERRAIN GENERATION - DISABLED FOR DEBUGGING
+// ============================================================================
+// Le terrain a été désactivé pour simplifier le debugging et réduire la
+// complexité du code. Cela permet de se concentrer sur les problèmes de
+// vitesse, de cycling et de comportement des entités.
+// ============================================================================
 void Simulation::generateTerrain() {
     terrain.clear();
 
+    // TERRAIN DISABLED - Tout le code de génération de terrain est commenté
+    // pour alléger le code et faciliter le debugging
+
+    /*
     // Générer des lacs (eau en forme organique)
     int numLakes = randInt(2, 4);
     for (int i = 0; i < numLakes; ++i) {
@@ -60,7 +71,6 @@ void Simulation::generateTerrain() {
     // Générer des rivières
     int numRivers = randInt(1, 2);
     for (int i = 0; i < numRivers; ++i) {
-        //float startX = (i == 0) ? 0 : res_width;
         float y = randFloat(100, GUI::res_height - 100);
         float width = randFloat(30, 50);
 
@@ -173,9 +183,25 @@ void Simulation::generateTerrain() {
 
         terrain.push_back(desert);
     }
+    */
 }
 
+// ============================================================================
+// FOOD SPAWNING - MODIFIED (TERRAIN DISABLED)
+// ============================================================================
+// Puisque le terrain est désactivé, on spawn la nourriture aléatoirement
+// dans toute la carte au lieu de seulement dans les prairies.
+// ============================================================================
 void Simulation::spawnFood() {
+    // TERRAIN DISABLED - Spawn nourriture aléatoire dans toute la carte
+    int numFood = randInt(3, 8);
+    for (int i = 0; i < numFood; ++i) {
+        float fx = randFloat(50, GUI::res_width - 50);
+        float fy = randFloat(50, GUI::res_height - 50);
+        foods.push_back(std::make_unique<Food>(fx, fy));
+    }
+
+    /* CODE ORIGINAL AVEC TERRAIN
     // Spawn dans les prairies
     for (const auto& tile : terrain) {
         if (tile.type == TerrainType::GRASS && randInt(0, 100) < 40) {
@@ -198,6 +224,7 @@ void Simulation::spawnFood() {
             }
         }
     }
+    */
 }
 
 // ============================================================================
@@ -365,10 +392,13 @@ void Simulation::evolve() {
 }
 
 void Simulation::draw(sf::RenderWindow& window, const sf::Font& font) {
+    // TERRAIN DISABLED - Dessin du terrain commenté
+    /*
     // Dessiner terrain
     for (const auto& tile : terrain) {
         tile.draw(window);
     }
+    */
 
     // Dessiner nourriture
     for (const auto& food : foods) {
